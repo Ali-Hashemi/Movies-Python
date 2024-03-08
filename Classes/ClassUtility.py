@@ -649,7 +649,8 @@ def convert_qt_creator_to_class(file):
 
 
 def convert_pdf_to_image(source, dest):
-    poppler_path = rename_file_paths_by_os(get_root_path() + "poppler-23.01.0/Library/bin")
+    # poppler_path = rename_file_paths_by_os(get_root_path() + "poppler-23.01.0/Library/bin")
+    poppler_path = rename_file_paths_by_os("C:/poppler-23.01.0/Library/bin")
 
     pages = convert_from_path(pdf_path=source, poppler_path=poppler_path)
 

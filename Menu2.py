@@ -82,7 +82,7 @@ class MyMainWindow(QMainWindow):
 
         self.show()
 
-        self.setMainWindow(1)
+        self.setMainWindow(2)
 
     def setMainWindow(self, status):
         if status == 1:
@@ -131,6 +131,7 @@ class MyTableWidget(QWidget):
             "Rename": FormRename,
             "IMDB Search": FormIMDBSearch,
             "Extract Web from Url File": FormExtractFromLinkFile,
+            "Extract IMDB All Pics": FormExtractIMDBAllPics,
             "Extract IMDB All Pics": FormExtractIMDBAllPics,
         }
 

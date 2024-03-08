@@ -21,7 +21,7 @@ from JsonEditor.Rename import FormRename
 from JsonEditor.CreateJsonIrani import FormCreateJsonIrani
 from JsonEditor.PosterRenaming import FormPosterRenaming
 from JsonEditor.PosterCode import FormPosterCode
-
+from JsonEditor.WhatsappTelegram import FormWhatsappTelegram
 
 class FormMyJsonEditorsWidget(QWidget):
     def __init__(self, parent):
@@ -48,6 +48,7 @@ class FormMyJsonEditorsWidget(QWidget):
         tabs = self.tabs2
 
         array = {
+            "What Telegram": FormWhatsappTelegram,
             "Json Editor": FormJsonEditor,
             "Fix Rename": FormRename,
             "Poster Renaming": FormPosterRenaming,

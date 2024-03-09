@@ -174,7 +174,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         film = Film.json_file_to_class(json_path)
 
         film_khareji_array = {
-            "عنوان": "<<" + film.per_title + ">>",
+            "🎥 فیلم": "<<" + film.per_title + ">>",
             "امتیاز": film.release,
             "کارگردان": film.release,
             "بازیگران": film.release,

@@ -8,11 +8,9 @@ import pyperclip
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    MAIN_RADIO_TYPE = 0
+    RADIO_SOCIAL_MEDIA_TYPE = 0
 
-    FILM_SUB_TYPE = 1
-
-    TV_SUB_TYPE = 1
+    RADIO_FILM_TYPE = 1
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
@@ -42,22 +40,34 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.shortcut.activated.connect(lambda: (self.rename_by_shortcuts(4)))
 
         self.radioButton_type_whatsapp.toggled.connect(lambda: (self.radio_social_media_clicked()))
-        self.radioButton_type_whatsapp.film_type = 1
+        self.radioButton_type_whatsapp.social_media_type = 1
 
         self.radioButton_type_telegram.toggled.connect(lambda: (self.radio_social_media_clicked()))
-        self.radioButton_type_telegram.film_type = 2
+        self.radioButton_type_telegram.social_media_type = 2
+
+        self.radioButton_film_kharej_dub.toggled.connect(lambda: (self.radio_film_type_clicked()))
+        self.radioButton_film_kharej_dub.film_type = 1
+
+        self.radioButton_film_kharej_sub.toggled.connect(lambda: (self.radio_film_type_clicked()))
+        self.radioButton_film_kharej_sub.film_type = 2
+
+        self.radioButton_film_irani.toggled.connect(lambda: (self.radio_film_type_clicked()))
+        self.radioButton_film_irani.film_type = 3
 
         self.radioButton_film_indian.toggled.connect(lambda: (self.radio_film_type_clicked()))
-        self.radioButton_film_indian.film_type = 3
+        self.radioButton_film_indian.film_type = 4
 
         self.radioButton_film_animation.toggled.connect(lambda: (self.radio_film_type_clicked()))
-        self.radioButton_film_animation.film_type = 4
+        self.radioButton_film_animation.film_type = 5
 
-        self.radioButton_series_kharej.toggled.connect(lambda: (self.radio_film_type_clicked()))
-        self.radioButton_series_kharej.film_type = 5
+        self.radioButton_series_kharej_dub.toggled.connect(lambda: (self.radio_film_type_clicked()))
+        self.radioButton_series_kharej_dub.film_type = 6
+
+        self.radioButton_series_kharej_sub.toggled.connect(lambda: (self.radio_film_type_clicked()))
+        self.radioButton_series_kharej_sub.film_type = 7
 
         self.radioButton_series_irani.toggled.connect(lambda: (self.radio_film_type_clicked()))
-        self.radioButton_series_irani.film_type = 6
+        self.radioButton_series_irani.film_type = 8
 
         # self.shortcut = QShortcut(QKeySequence('F4'), self)
         # self.shortcut.activated.connect(lambda: (self.remove_selected_item()))
@@ -71,7 +81,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def radio_social_media_clicked(self):
         radio_button = self.sender()
         if radio_button.isChecked():
-            self.MAIN_RADIO_TYPE = radio_button.film_type
+            self.RADIO_SOCIAL_MEDIA_TYPE = radio_button.social_media_type
             # if radio_button.film_type == 1:
             #     self.radioButton_film_base_folder.setEnabled(1)
             #     self.radioButton_film_per_sub.setEnabled(1)
@@ -89,28 +99,28 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def radio_film_type_clicked(self):
         radio_button = self.sender()
         if radio_button.isChecked():
-            self.FILM_SUB_TYPE = radio_button.film_type
+            self.RADIO_FILM_TYPE = radio_button.film_type
             print(radio_button.film_type)
 
     def rename_by_shortcuts(self, mode=None):
         if mode == 0:
-            self.MAIN_RADIO_TYPE = 0
+            self.RADIO_SOCIAL_MEDIA_TYPE = 0
             self.create_text()
 
         elif mode == 1:
-            self.MAIN_RADIO_TYPE = 1
-            self.FILM_SUB_TYPE = 1
+            self.RADIO_SOCIAL_MEDIA_TYPE = 1
+            self.RADIO_FILM_TYPE = 1
             self.create_text()
         elif mode == 2:
-            self.MAIN_RADIO_TYPE = 1
-            self.FILM_SUB_TYPE = 2
+            self.RADIO_SOCIAL_MEDIA_TYPE = 1
+            self.RADIO_FILM_TYPE = 2
             self.create_text()
         elif mode == 3:
-            self.MAIN_RADIO_TYPE = 2
+            self.RADIO_SOCIAL_MEDIA_TYPE = 2
             self.TV_SUB_TYPE = 1
             self.create_text()
         elif mode == 4:
-            self.MAIN_RADIO_TYPE = 2
+            self.RADIO_SOCIAL_MEDIA_TYPE = 2
             self.TV_SUB_TYPE = 2
             self.create_text()
 
@@ -127,7 +137,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
                     h, parent_name = get_path_and_file(parent_folder)
 
-                    if self.MAIN_RADIO_TYPE == 0:
+                    if self.RADIO_SOCIAL_MEDIA_TYPE == 0:
                         self.generate_text(file, parent_folder)
 
                 elif os.path.isfile(item):
@@ -135,21 +145,21 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
                     h, parent_name = get_path_and_file(parent_folder)
 
-                    if self.MAIN_RADIO_TYPE == 0:
+                    if self.RADIO_SOCIAL_MEDIA_TYPE == 0:
                         self.generate_text(file, parent_folder)
 
-                    elif self.MAIN_RADIO_TYPE == 1:
-                        if self.FILM_SUB_TYPE == 1:
+                    elif self.RADIO_SOCIAL_MEDIA_TYPE == 1:
+                        if self.RADIO_FILM_TYPE == 1:
                             file_ext = File.get_file_ext(file)
                             filename = parent_name[parent_name.find(File.trim_name_tv_series(parent_name)):] + file_ext
                             move_or_rename_files(item, parent_folder, filename)
-                        elif self.FILM_SUB_TYPE == 2:
+                        elif self.RADIO_FILM_TYPE == 2:
                             file_ext = File.get_file_ext(file)
                             filename = "(Per) " + parent_name[
                                                   parent_name.find(File.trim_name_tv_series(parent_name)):] + file_ext
                             move_or_rename_files(item, parent_folder, filename)
 
-                    elif self.MAIN_RADIO_TYPE == 2:
+                    elif self.RADIO_SOCIAL_MEDIA_TYPE == 2:
                         if self.TV_SUB_TYPE == 1:
                             file_ext = File.get_file_ext(file)
                             folder_name = File.trim_name_tv_series(parent_name)

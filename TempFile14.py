@@ -7,10 +7,11 @@ from Data import Film
 
 import pyperclip
 
-path = rename_file_paths_by_os("D:\Python Projects\Movies-Python\Temp\(0)-Previously\(DA1000) - 2 Guns (2013)")
+path = rename_file_paths_by_os(
+    "D:\Projects\Movies-Python\Temp\(DA1545) - Alexander and the Terrible, Horrible, No Good, Very Bad Day (2014)")
 
 json_path = rename_file_paths_by_os(
-    "D:\Python Projects\Movies-Python\Temp\(0)-Previously\(DA1000) - 2 Guns (2013)") + CustomNames.EXTRACTED_DATA
+    path) + CustomNames.EXTRACTED_DATA
 
 film = Film.json_file_to_class(json_path)
 
@@ -58,6 +59,8 @@ film_khareji_array = {
     "کشور": film.country,
     "🗯 خلاصه داستان": film.per_info,
 }
+
+
 
 full_text = ""
 

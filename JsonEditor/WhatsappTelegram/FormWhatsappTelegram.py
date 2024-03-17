@@ -5,7 +5,7 @@ from Data.Film import *
 from JsonEditor.WhatsappTelegram.MainWindow import Ui_MainWindow
 from JsonEditor.CustomListView import *
 import pyperclip
-
+from PIL import Image
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     RADIO_SOCIAL_MEDIA_TYPE = 0
@@ -14,6 +14,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
+
+        self.setAcceptDrops(True)
 
         self.setupUi(self)
 
@@ -77,6 +79,39 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         #
         self.pushButton_create.clicked.connect(lambda: (self.create_text()))
         self.pushButton_clear.clicked.connect(lambda: (self.clear_items()))
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls:
+            event.accept()
+        else:
+            event.ignore()
+
+    def dragMoveEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.setDropAction(Qt.CopyAction)
+            event.accept()
+        else:
+            event.ignore()
+
+    def dropEvent(self, event):
+        if event.mimeData().hasImage:
+            event.setDropAction(Qt.CopyAction)
+            file_path = str(event.mimeData().urls()[0].toLocalFile())
+            parent_folder = rename_file_paths_by_os(file_path.replace(get_last_file_or_folder_from_path(file_path), ""))
+
+            print(parent_folder)
+
+            if os.path.isdir(parent_folder):
+                parent_folder, file = get_path_and_file(parent_folder)
+
+                h, parent_name = get_path_and_file(parent_folder)
+
+                if self.RADIO_SOCIAL_MEDIA_TYPE == 0:
+                    self.generate_text(file, parent_folder)
+
+            event.accept()
+        else:
+            event.ignore()
 
     def radio_social_media_clicked(self):
         radio_button = self.sender()
@@ -179,18 +214,54 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.clear_items()
 
     def generate_text(self, file, location):
-        json_path = rename_file_paths_by_os(location + file) + CustomNames.EXTRACTED_DATA
+        folder_path = rename_file_paths_by_os(location + file)
+        json_path = folder_path + CustomNames.EXTRACTED_DATA
 
         film = Film.json_file_to_class(json_path)
 
+        temp_actors = []
+        temp_genre = []
+
+        for idx, item in enumerate(film.actors):
+            if idx >= 3:
+                break
+            item = re.sub("\s+", "_", item.strip())
+            temp_actors.append("#" + item)
+
+        for idx, item in enumerate(film.per_genre):
+            if idx >= 5:
+                break
+            item = re.sub("\s+", "_", item.strip())
+            temp_genre.append("#" + item)
+
+        poster_code = (File.trim_poster_code(get_last_file_or_folder_from_path(folder_path)))
+
+        film.per_title = "«" + film.per_title + "»"
+        film.eng_title = film.eng_title + " #" + film.release + ""
+        film.actors = temp_actors
+        film.per_genre = temp_genre
+        film.director = "#" + re.sub("\s+", "_", film.director.strip())
+        film.country = "#" + re.sub("\s+", "_", film.country[0].strip())
+        film.score = film.score + "/10"
+
+        is_dubbed = ""
+
+        if film.dubbed:
+            is_dubbed = "#دوبله_بدون_سانسور"
+        else:
+            is_dubbed = "#زیرنویس_فارسی_چسبیده"
+
         film_khareji_array = {
-            "🎥 فیلم": "<<" + film.per_title + ">>",
-            "امتیاز": film.release,
-            "کارگردان": film.release,
-            "بازیگران": film.release,
-            "ژانر": film.release,
-            "کشور": film.release,
-            "دوبله یا زیرنویس": film.release,
+            "🏅 کد": poster_code,
+            "📺 #فیلم_خارجی": film.per_title,
+            "💬": is_dubbed,
+            "🎬": film.eng_title,
+            "🏆 امتیاز": film.score,
+            "👔 کارگردان": film.director,
+            "💎 ستارگان": " , ".join(film.actors),
+            "🎭 ژانر": " , ".join(film.per_genre),
+            "کشور": film.country,
+            "🗯 خلاصه داستان": film.per_info,
         }
 
         full_text = ""
@@ -201,6 +272,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # print(full_text)
 
         pyperclip.copy(full_text)
+
         spam = pyperclip.paste()
 
     def remove_selected_item(self):

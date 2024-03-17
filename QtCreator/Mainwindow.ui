@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>672</width>
-    <height>486</height>
+    <width>901</width>
+    <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -120,14 +120,14 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QRadioButton" name="radioButton_film_kharej">
+     <widget class="QRadioButton" name="radioButton_film_kharej_sub">
       <property name="enabled">
        <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>20</y>
         <width>241</width>
         <height>41</height>
        </rect>
@@ -138,7 +138,7 @@
        </font>
       </property>
       <property name="text">
-       <string>فیلم خارجی</string>
+       <string>فیلم خارجی زیرنویس</string>
       </property>
       <property name="checked">
        <bool>false</bool>
@@ -151,7 +151,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>30</y>
+        <y>50</y>
         <width>241</width>
         <height>41</height>
        </rect>
@@ -199,7 +199,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>200</y>
+        <y>220</y>
         <width>241</width>
         <height>41</height>
        </rect>
@@ -216,7 +216,79 @@
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton_series_kharej">
+     <widget class="QRadioButton" name="radioButton_series_kharej_dub">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>160</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>سریال خارجی دوبله</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_film_indian">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>فیلم هندی</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_film_kharej_dub">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>فیلم خارجی دوبله</string>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_series_kharej_sub">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -234,31 +306,7 @@
        </font>
       </property>
       <property name="text">
-       <string>سریال خارجی</string>
-      </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton_film_indian">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>241</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>فیلم هندی</string>
+       <string>سریال خارجی زیرنویس</string>
       </property>
       <property name="checked">
        <bool>false</bool>
@@ -365,7 +413,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>672</width>
+     <width>901</width>
      <height>22</height>
     </rect>
    </property>
